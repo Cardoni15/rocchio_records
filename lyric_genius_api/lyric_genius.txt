@@ -1,0 +1,1 @@
+This folder will contain all scripts required for drawing our lyric data from lyric_genius
