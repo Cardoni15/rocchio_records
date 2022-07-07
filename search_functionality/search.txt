@@ -1,1 +1,8 @@
 This folder will contain all functions required for lyrical search.
+
+development.ipynb is a place for scratch work. 
+The notebook format allows for different functions to be tried and repeated without re-running the entire script.
+After a section of code passes in my notebook I will move it into the relevant python file as a function for others to use.
+
+search_lyrics.py contains all search functions.
+The Rocchio feedback filter lives here.
