@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics.pairwise import cosine_similarity
-from collections import defaultdict, Counter
+from collections import defaultdict
 import os
 import pickle
 
@@ -107,7 +107,7 @@ class Napster2_Rocchio_Feedback():
         # create a track name, track id, artist name, similarity dataframe
         # need to make this a copy so that we do not modify the already stored data
         self.all_tracks_df['similarity'] = simVals
-        self.user_playlist = self.all_tracks_df.sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']]
+        self.user_playlist = self.all_tracks_df.sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']].reset_index(drop=True)
         self.user_playlist['feedback'] = 0
 
     def return_top_10_tracks(self):
@@ -121,14 +121,15 @@ class Napster2_Rocchio_Feedback():
         User input assign 0,1,2 to user feedback
         0 = nuetral
         1 = dislike
-        2 = love
+        2 = like
         """
-        self.user_playlist['feedback'] = feedback_series
+        self.user_playlist['feedback'] = feedback_series.replace({'Nuetral' : 0, 'Dislike' : 1,'Like' : 2})
+        return 'is this thing on'
 
     def rocchio_feedback(self, alpha=1.0, beta=0.75, gamma=0.25, phi=0.5):#, user_playlist, track_vec_dict, userLsi):
         """ 
         Rochhio Feedback Filtering
-        1. Group user feeback by love, nuetral, dislike
+        1. Group user feeback by like, nuetral, dislike
         2. Calculate the mean for each group
         3. Apply alpha, beta, gamma, and phi to:
             Original search, loves, hates, nuetral
