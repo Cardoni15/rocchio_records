@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics.pairwise import cosine_similarity
-from collections import defaultdict, Counter
+from collections import defaultdict
 import os
 import pickle
 
