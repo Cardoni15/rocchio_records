@@ -1,0 +1,12 @@
+ipython==8.4.0
+numpy==1.23.2
+pandas==1.4.3
+Pillow==9.2.0
+requests==2.28.1
+scipy==1.9.0
+scikit-learn==1.1.2
+spotipy==2.20.0
+tk==0.1.0
+tkinterweb==3.14.3
+urllib3==1.26.11
+virtualenv==20.16.3
