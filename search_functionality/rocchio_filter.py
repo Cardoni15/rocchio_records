@@ -1,16 +1,13 @@
+#!/usr/bin/env python3.9
 ## All functions required for search will be stored here 
 # Cody J Middleton 
 
-import pandas as pd
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict, Counter
-from tqdm import tqdm
-from langdetect import detect, DetectorFactory
-import multiprocessing
 import os
 import pickle
 
