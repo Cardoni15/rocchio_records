@@ -53,7 +53,7 @@ class Napster_GUI_Object():
         # Frame to display like / dislike selections and playlist
         self.frame2.grid(row=2, column=0, sticky="ew", rowspan=2)
         self.frame3.grid(row=5, column=0, sticky="ew")
-        self.label = Label(self.frame1, text = 'Track: ' + '\n' + 'Artist: ' , anchor='w', justify=LEFT) #, font=("Arial",12))
+        self.label = Label(self.frame1, text = 'Track: ' + '\n' + 'Artist: ' , anchor='w', justify=LEFT)
         self.label.grid(row=0, column=0, sticky="nw", padx=3, pady = 10, columnspan=4)
         # Add images to buttons
         temp_path = os.getcwd()
@@ -105,19 +105,23 @@ class Napster_GUI_Object():
         self.sample_song_label = Label(self.frame1, text = '')
         self.sample_song_label.grid(row=1, column=1, sticky="nw", padx=5, pady = 10, columnspan=3)
         # Start over button to get back to original screen
-        self.b_startover = Button(self.frame3, text = '        Start Over        ', command=self.start_over)
+        self.b_startover = Button(self.frame3, text = 'Start Over', command=self.start_over)
         self.b_startover.grid(row=1, column=0, sticky="ew", padx=3, pady=5)
+        # Keep rating button
+        self.b_keeprating = Button(self.frame3, text = 'Keep Rating', command=self.keep_rating)
+        self.b_keeprating.grid(row=1, column=1, sticky="ew", padx=3, pady=5)
         # View playlist once 10 lyrics rated
-        self.b_playlist = Button(self.frame3, text = '       View Playlist       ', command=self.view_playlist)
-        self.b_playlist.grid(row=1, column=1, sticky="ew", padx=3, pady=5)
+        self.b_playlist = Button(self.frame3, text = 'View Playlist', command=self.view_playlist)
+        self.b_playlist.grid(row=1, column=2, sticky="ew", padx=3, pady=5)
         # Export playlist to Spotify
         self.b_export_playlist = Button(self.frame3, text = 'Add to Spotify Queue', command=self.export_to_spotify)
-        self.b_export_playlist.grid(row=1, column=2, sticky="ew", padx=3, pady=5)
+        self.b_export_playlist.grid(row=1, column=3, sticky="ew", padx=3, pady=5)
         # Set original state for like and dislike buttons to disables
         self.b_like["state"] = DISABLED
         self.b_dislike["state"] = DISABLED
         self.b_neutral["state"] = DISABLED
         self.b_listen["state"] = DISABLED
+        self.b_keeprating["state"] = DISABLED
         self.b_playlist["state"] = DISABLED
         self.b_export_playlist["state"] = DISABLED
         # create table to show lyrics with rating and add a scrollbar
@@ -246,7 +250,7 @@ class Napster_GUI_Object():
         #Insert songs from playlist dataframe
         for index, row in self.track_df.iterrows():
             self.listBox_playlist.insert("", "end", values=(row.track_name, row.artist_name))
-        
+        self.b_keeprating["state"] = NORMAL
         self.b_playlist["state"] = DISABLED
         self.b_export_playlist["state"] = NORMAL
         
@@ -259,7 +263,7 @@ class Napster_GUI_Object():
         self.like_dislike_count()
         # Reset buttons
         self.b_playlist["state"] = DISABLED
-        #b_startover["state"] = DISABLED
+        self.b_keeprating["state"] = DISABLED
         self.b_export_playlist["state"] = DISABLED
         # Remove lyric
         self.label.config(text="")
@@ -303,3 +307,21 @@ class Napster_GUI_Object():
         self.track_df = self.rff.return_top_10_tracks()
         self.lyric_entered = 1
         self.reset()
+
+    def keep_rating(self):
+        # this means that the user wants to keep iterating.
+        # our next step is to get their likes and dislikes.
+            #test out print of values in table that show likes/dislikes
+        ratings = pd.Series([self.listBox_lyrics.item(child)["values"][-1] for child in self.listBox_lyrics.get_children()])
+        # provide the ratings to the rocchio filter
+        self.rff.apply_feedback(ratings)
+        # call the filter to update the tracks
+        self.rff.rocchio_feedback()
+        # update the track list
+        self.track_df = self.rff.return_top_10_tracks()
+        self.start_over()
+        self.lyric_entered = 1 
+        self.reset()
+        self.lyricSearch["state"] = DISABLED
+        self.lyricBox["state"] = DISABLED
+        
