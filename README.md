@@ -1,5 +1,5 @@
 <h1>napster_2</h1>
-<img src="https://github.com/Cardoni15/napster_2/blob/main/napster_2.png?raw=true" width="450" height="300" align="right">
+<img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/napster_2.png?raw=true" width="450" height="300" align="right">
 <h3> Product Overview </h3>
 <ul>
   <li>Gnerates Spotify playlists based on lyrical semantics and user feedback.</li> 
