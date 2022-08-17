@@ -2,7 +2,7 @@
 <img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/napster_2.png?raw=true" width="450" height="300" align="right">
 <h3> Product Overview </h3>
 <ul>
-  <li>Gnerates Spotify playlists based on lyrical semantics and user feedback.</li> 
+  <li>Gnerate Spotify playlists based on lyrical semantics and user feedback.</li> 
   <li>The user provides their favorite song lyric.</li>
   <li>This product will provide users with a <i>unique playlist experience.</i></li>
 </ul>
