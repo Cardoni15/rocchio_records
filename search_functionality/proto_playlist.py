@@ -17,11 +17,7 @@ def generate_prototype_playlist():
 
     # step 2 pull 30 random tracks.
     track_df = pd.read_csv(practice_data_path)
-    rel_columns = ['track_id', 'track_name_x', 'artist_name_x']
+    rel_columns = ['track_id', 'track_name', 'artist_name']
     track_df = track_df[rel_columns]
-    track_df.rename(columns={'track_id': 'spotify_id',
-                            'track_name_x': 'track_name',
-                            'artist_name_x': 'artist_name'
-    })
     return track_df.sample(30, random_state=15)
 
