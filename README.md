@@ -2,7 +2,7 @@
 <img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/napster_2.png?raw=true" width="450" height="300" align="right">
 <h3> Product Overview </h3>
 <ul>
-  <li>Gnerate Spotify playlists based on lyrical semantics and user feedback.</li> 
+  <li>Generate Spotify playlists based on lyrical semantics and user feedback.</li> 
   <li>The user provides their favorite song lyric.</li>
   <li>This product will provide users with a <i>unique playlist experience.</i></li>
 </ul>
@@ -40,6 +40,11 @@
 <li>The user needs to generate lyric genius API credentials HERE </li>
 </ul>
 <h3> Generating Your First Playlist </h3>
+<li>Enter a lyric in the search bar of the interface and submit</li>
+<li>Click like, dislike, or neutral options for the ten tracks that will display, one at a time</li>
+<li>Optionally click play for a sample of the track if user is not familiar with it</li>
+<li>Once 10 tracks are rated, view the playlist</li>
+<li>Export the playlist to Spotify or continue rating tracks for a more customized playlist</li>
 
 <h3> Drawing Data from Spotify </h3>
 
