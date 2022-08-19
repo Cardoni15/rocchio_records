@@ -40,12 +40,13 @@
 <li>The user needs to generate lyric genius API credentials HERE </li>
 </ul>
 <h3> Generating Your First Playlist </h3>
-<li>Enter a lyric in the search bar of the interface and submit</li>
-<li>Click like, dislike, or neutral options for the ten tracks that will display, one at a time</li>
-<li>Optionally click play for a sample of the track if user is not familiar with it</li>
-<li>Once 10 tracks are rated, view the playlist</li>
-<li>Export the playlist to Spotify or continue rating tracks for a more customized playlist</li>
-
+<ul>
+  <li>Enter a lyric in the search bar of the interface and submit</li>
+  <li>Click like, dislike, or neutral options for the ten tracks that will display, one at a time</li>
+  <li>Optionally click play for a sample of the track if user is not familiar with it</li>
+  <li>Once 10 tracks are rated, view the playlist</li>
+  <li>Export the playlist to Spotify or continue rating tracks for a more customized playlist</li>
+</ul>
 <h3> Drawing Data from Spotify </h3>
 
 <h3> Generating an LSI Dictionary with New Track Data </h3>
