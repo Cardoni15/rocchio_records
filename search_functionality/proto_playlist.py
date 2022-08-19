@@ -11,8 +11,8 @@ def generate_prototype_playlist():
     """
     # step 1 resolve path 
     temp_path = os.getcwd()
-    root_path = temp_path.split('/napster_2')[0]
-    repo_path = '/napster_2/lyric_genius_api/practice_data.csv'
+    root_path = temp_path.split('/rocchio_records')[0]
+    repo_path = '/rocchio_records/lyric_genius_api/practice_data.csv'
     practice_data_path = root_path + repo_path
 
     # step 2 pull 30 random tracks.
