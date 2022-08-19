@@ -51,8 +51,8 @@ class Napster2_Rocchio_Feedback():
     
     def base_path(self):
             temp_path = os.getcwd()
-            root_path = temp_path.split('/napster_2')[0]
-            repo_path = '/napster_2/application_data/'
+            root_path = temp_path.split('/rocchio_records')[0]
+            repo_path = '/rocchio_records/application_data/'
             return root_path + repo_path
 
     def userSearch(self, user_query):

@@ -58,12 +58,12 @@ class Napster_GUI_Object():
         self.label.grid(row=0, column=0, sticky="nw", padx=3, pady = 10, columnspan=4)
         # Add images to buttons
         temp_path = os.getcwd()
-        root_path = temp_path.split('/napster_2')[0]
-        tu_repo_path = '/napster_2/user_interface/thumbs_up.png'
-        td_repo_path = '/napster_2/user_interface/thumbs_down.png'
-        r_repo_path = '/napster_2/user_interface/refresh.png'
-        p_repo_path = '/napster_2/user_interface/play_button.png'
-        logo_repo_path = '/napster_2/user_interface/napster_logo.png'
+        root_path = temp_path.split('/rocchio_records')[0]
+        tu_repo_path = '/rocchio_records/user_interface/thumbs_up.png'
+        td_repo_path = '/rocchio_records/user_interface/thumbs_down.png'
+        r_repo_path = '/rocchio_records/user_interface/refresh.png'
+        p_repo_path = '/rocchio_records/user_interface/play_button.png'
+        logo_repo_path = '/rocchio_records/user_interface/napster_logo.png'
         tu_path = root_path + tu_repo_path
         td_path = root_path + td_repo_path
         r_path = root_path + r_repo_path
