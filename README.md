@@ -1,5 +1,5 @@
-<h1>Rocchio Records</h1>
-<img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/rocchio_logo_2.png?raw=true" width="400" height="400" align="right">
+
+<img src="https://github.com/Cardoni15/napster_2/blob/main/rocchio_logo_4.png?raw=true" width="900" height="175" align="top">
 <h3> Product Overview </h3>
 <ul>
   <li>Gnerate Spotify playlists based on lyrical semantics and user feedback.</li> 
