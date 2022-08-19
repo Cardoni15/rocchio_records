@@ -18,9 +18,9 @@
  <ul>
   <li> Open a terminal from the rocchio_records directory </li>
   <li> sudo pip install virtualenv </li>
-  <li> download python 3.9.13 for your machine https://www.python.org/downloads/release/python-3913/ </li>
-  <li> virtualenv venv3913 --python=python3.9.13 </li>
-  <li> source venv3913/bin/activate </li>
+  <li> you will need to download python 3.9 for your machine https://www.python.org/downloads/release/python-3913/ </li>
+  <li> virtualenv venv39 --python=python3.9 </li>
+  <li> source venv39/bin/activate </li>
   <li> pip install -r requirements.txt </li>
   <li> ./rocchio_main.py </li>
  </ul>
