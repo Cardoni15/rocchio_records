@@ -35,8 +35,8 @@ class Napster_GUI_Object():
         self.lyric_entered = 0
         self.like_dislike_counter = 0
         self.root = Tk()
-        self.root.geometry('625x450')
-        self.root.title("Napster 2")
+        self.root.geometry('640x450')
+        self.root.title("Rocchio Records")
         self.frame0 = Frame(self.root)
         self.frame1 = Frame(self.root)
         self.frame2 = Frame(self.root)
@@ -63,7 +63,7 @@ class Napster_GUI_Object():
         td_repo_path = '/rocchio_records/user_interface/thumbs_down.png'
         r_repo_path = '/rocchio_records/user_interface/refresh.png'
         p_repo_path = '/rocchio_records/user_interface/play_button.png'
-        logo_repo_path = '/rocchio_records/user_interface/napster_logo.png'
+        logo_repo_path = '/rocchio_records/user_interface/rocchio_10.png'
         tu_path = root_path + tu_repo_path
         td_path = root_path + td_repo_path
         r_path = root_path + r_repo_path
@@ -252,7 +252,7 @@ class Napster_GUI_Object():
         #for index, row in self.track_df.iterrows():
         #    self.listBox_playlist.insert("", "end", values=(row.track_name, row.artist_name))
         for child in self.listBox_lyrics.get_children():
-            if self.listBox_lyrics.item(child)["values"][2] == 'Like' or 'Neutral':
+            if self.listBox_lyrics.item(child)["values"][2] == 'Like':
                 self.listBox_playlist.insert("", "end", values=(self.listBox_lyrics.item(child)["values"][0],self.listBox_lyrics.item(child)["values"][1]))
                 # store tracks over multiple loops
                 self.liked_tracks = pd.concat([self.liked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
