@@ -1,5 +1,5 @@
-<h1>napster_2</h1>
-<img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/Rocchio_logo.png?raw=true" width="400" height="400" align="right">
+<h1>Rocchio Records</h1>
+<img src="https://github.com/Cardoni15/napster_2/blob/main/application_data/rocchio_logo_2.png?raw=true" width="400" height="400" align="right">
 <h3> Product Overview </h3>
 <ul>
   <li>Gnerate Spotify playlists based on lyrical semantics and user feedback.</li> 
@@ -16,7 +16,7 @@
  
  <h3> Getting Started </h3>
  <ul>
-  <li> Open a terminal from the napster_2 directory </li>
+  <li> Open a terminal from the rocchio_records directory </li>
   <li> sudo pip install virtualenv </li>
   <li> virtualenv venv3913 --python=python3.9.13 </li>
   <li> source venv3913/bin/activate </li>
