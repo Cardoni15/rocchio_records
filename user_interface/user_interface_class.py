@@ -28,6 +28,7 @@ class Napster_GUI_Object():
         Global variables can be stored in the init
         """
         self.rff = Napster2_Rocchio_Feedback()
+        self.liked_tracks = pd.DataFrame()
         self.track_df = None
         self.track_to_rate = None
         self.like_dislike_counter = 0
@@ -248,8 +249,13 @@ class Napster_GUI_Object():
         self.listBox_playlist.configure(yscrollcommand=self.vsb_playlist.set)
         
         #Insert songs from playlist dataframe
-        for index, row in self.track_df.iterrows():
-            self.listBox_playlist.insert("", "end", values=(row.track_name, row.artist_name))
+        #for index, row in self.track_df.iterrows():
+        #    self.listBox_playlist.insert("", "end", values=(row.track_name, row.artist_name))
+        for child in self.listBox_lyrics.get_children():
+            if self.listBox_lyrics.item(child)["values"][2] == 'Like' or 'Neutral':
+                self.listBox_playlist.insert("", "end", values=(self.listBox_lyrics.item(child)["values"][0],self.listBox_lyrics.item(child)["values"][1]))
+                # store tracks over multiple loops
+                self.liked_tracks = pd.concat([self.liked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
         self.b_keeprating["state"] = NORMAL
         self.b_playlist["state"] = DISABLED
         self.b_export_playlist["state"] = NORMAL
