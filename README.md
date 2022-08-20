@@ -61,6 +61,7 @@
    </ul>
    <li> We recommend using the default objects in the repo. 75k tracks are already included. </li>
    <li> This notebook was provided in the event the user wants to retrain with a different set of tracks. </li>
+   <li> More information can be found in the search_functionality read me. </li>
  </ul>
 
 
