@@ -20,15 +20,15 @@ import pandas as pd
 import numpy as np
 import os
 
-from search_functionality.rocchio_filter import Napster2_Rocchio_Feedback
+from search_functionality.rocchio_filter import Lyric_Rocchio_Feedback
 
-class Napster_GUI_Object():
+class Rocchio_Records_GUI_Object():
     def __init__(self):
         """ 
         Initialize the GUI by creating an object
         Global variables can be stored in the init
         """
-        self.rff = Napster2_Rocchio_Feedback()
+        self.rff = Lyric_Rocchio_Feedback()
         self.liked_tracks = pd.DataFrame()
         self.track_df = None
         self.track_to_rate = None
