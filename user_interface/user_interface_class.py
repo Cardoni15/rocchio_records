@@ -35,125 +35,62 @@ class Napster_GUI_Object():
         self.like_dislike_counter = 0
         self.lyric_entered = 0
         self.like_dislike_counter = 0
-        self.root = Tk()
-        self.root.geometry('640x450')
-        self.root.title("Rocchio Records")
-        self.frame0 = Frame(self.root)
-        self.frame1 = Frame(self.root)
-        self.frame2 = Frame(self.root)
-        self.frame3 = Frame(self.root)
-        # Frame for get lyric, like, dislike
-        self.frame0.grid(row=0, column=0, sticky="w")
-        self.frame0.grid_columnconfigure((0,1,2,3), weight=1)
-        # Frame for get lyric, like, dislike
-        self.frame1.grid(row=1, column=0, sticky="w")
-        self.frame1.grid_columnconfigure((0,1,2,3), weight=1, uniform="column")
-        #Add buttons to sub-frame in Frame 1 so they all fit in first column
-        self.frame1b = Frame(self.frame1)
-        self.frame1b.grid(row=1, column=0, sticky="ew")
-        self.frame1b.grid_columnconfigure((0,1,2,3), weight=1, uniform="column")
-        # Frame to display like / dislike selections and playlist
-        self.frame2.grid(row=2, column=0, sticky="ew", rowspan=2)
-        self.frame3.grid(row=5, column=0, sticky="ew")
-        self.label = Label(self.frame1, text = 'Track: ' + '\n' + 'Artist: ' , anchor='w', justify=LEFT)
-        self.label.grid(row=0, column=0, sticky="nw", padx=3, pady = 10, columnspan=4)
-        # Add images to buttons
-        temp_path = os.getcwd()
-        root_path = temp_path.split('/rocchio_records')[0]
-        tu_repo_path = '/rocchio_records/user_interface/thumbs_up.png'
-        td_repo_path = '/rocchio_records/user_interface/thumbs_down.png'
-        r_repo_path = '/rocchio_records/user_interface/refresh.png'
-        p_repo_path = '/rocchio_records/user_interface/play_button.png'
-        logo_repo_path = '/rocchio_records/user_interface/rocchio_10.png'
-        tu_path = root_path + tu_repo_path
-        td_path = root_path + td_repo_path
-        r_path = root_path + r_repo_path
-        p_path = root_path + p_repo_path
-        logo_path = root_path + logo_repo_path
-        # Creating a photoimage object to use image
-        tu_photo = PhotoImage(file = tu_path)
-        td_photo = PhotoImage(file = td_path)
-        r_photo = PhotoImage(file = r_path)
-        p_photo = PhotoImage(file = p_path)
-        logo_photo = PhotoImage(file = logo_path)
-        # Resizing image to fit on button
-        self.tu_photoimage = tu_photo.subsample(6, 6)
-        self.td_photoimage = td_photo.subsample(6, 6)
-        self.r_photoimage = r_photo.subsample(25, 25)
-        self.p_photoimage = p_photo.subsample(12, 12)
-        self.logo_photoimage = logo_photo.subsample(2, 2)
-        #Add logo to top frame
-        self.logo_label = Label(self.frame0, image = self.logo_photoimage)
-        self.logo_label.grid(row=0, column=0)
-        #Add search bar
-        self.lyricBox = Text(self.frame0, height=2, width=32)
-        self.lyricBox.grid(row=0, column=1, pady=5)
-        self.lyricSearch = Button(self.frame0, text = 'Submit', command=self.lyric_processing)
-        self.lyricSearch.grid(row=0, column=2, sticky="ew", padx=3, pady=5)
-        self.lyricSearch["state"] = NORMAL
-        # Create buttons (like, dislike, get lyrics, start over, view playlist)
-        self.b_like = Button(self.frame1b, image = self.tu_photoimage, compound = RIGHT, command=self.like)
-        self.b_like.grid(row=1, column=0, padx=3, pady=5)
-        self.b_dislike = Button(self.frame1b, image = self.td_photoimage, compound = RIGHT, command=self.dislike)
-        self.b_dislike.grid(row=1, column=1, padx=3, pady=5)
-        self.b_neutral = Button(self.frame1b, image = self.r_photoimage, compound = RIGHT, command=self.neutral)
-        self.b_neutral.grid(row=1, column=2, padx=2, pady=5)
-        self.b_listen = Button(self.frame1b, image = self.p_photoimage, compound = RIGHT, command=self.listen_to_track)
-        self.b_listen.grid(row=1, column=3, padx=2, pady=5)
-        # Track number of lyrics liked or disliked 
-        self.tracker_label = Label(self.frame1, text = 'Tracks Rated: ' + str("{0:0=2d}".format(self.like_dislike_counter)) + "/10")
-        self.tracker_label.grid(row=2, column=0, sticky="nw", padx=5, pady = 10)
-        # When play is clicked, display message on where song will play 
-        self.sample_song_label = Label(self.frame1, text = '')
-        self.sample_song_label.grid(row=1, column=1, sticky="nw", padx=5, pady = 10, columnspan=3)
-        # Start over button to get back to original screen
-        self.b_startover = Button(self.frame3, text = 'Start Over', command=self.start_over)
-        self.b_startover.grid(row=1, column=0, sticky="ew", padx=3, pady=5)
-        # Keep rating button
-        self.b_keeprating = Button(self.frame3, text = 'Keep Rating', command=self.keep_rating)
-        self.b_keeprating.grid(row=1, column=1, sticky="ew", padx=3, pady=5)
-        # View playlist once 10 lyrics rated
-        self.b_playlist = Button(self.frame3, text = 'View Playlist', command=self.view_playlist)
-        self.b_playlist.grid(row=1, column=2, sticky="ew", padx=3, pady=5)
-        # Export playlist to Spotify
-        self.b_export_playlist = Button(self.frame3, text = 'Add to Spotify Queue', command=self.export_to_spotify)
-        self.b_export_playlist.grid(row=1, column=3, sticky="ew", padx=3, pady=5)
-        # Set original state for like and dislike buttons to disables
-        self.b_like["state"] = DISABLED
-        self.b_dislike["state"] = DISABLED
-        self.b_neutral["state"] = DISABLED
-        self.b_listen["state"] = DISABLED
-        self.b_keeprating["state"] = DISABLED
-        self.b_playlist["state"] = DISABLED
-        self.b_export_playlist["state"] = DISABLED
-        # create table to show lyrics with rating and add a scrollbar
-        cols = ('Track Name', "Artist Name", 'Rating')
-        self.listBox_lyrics = ttk.Treeview(self.frame2, columns=cols, show='headings')
-        self.vsb_lyrics = ttk.Scrollbar(self.frame2, orient="vertical", command=self.listBox_lyrics.yview)
-        #doubleclicking changes like to dislike and vice versa
-        self.listBox_lyrics.bind("<Double-1>", self.enable_edit)
-        for col in cols:
-            self.listBox_lyrics.heading(col, text=col)    
-        self.vsb_lyrics.grid(row=1, column=1, sticky='ns')
-        self.listBox_lyrics.grid(row=1, column=0, sticky="ew")
-        self.listBox_lyrics.configure(yscrollcommand=self.vsb_lyrics.set)
-        # create table to show playlist - do not display until enabled
-        cols = ("Track Name","Artist Name")
-        self.listBox_playlist = ttk.Treeview(self.frame2, selectmode='browse', columns=cols, show='headings')
-        self.vsb_playlist = ttk.Scrollbar(self.frame2, orient="vertical", command=self.listBox_playlist.yview)
-        for col in cols:
-            self.listBox_playlist.heading(col, text=col)
+        self.root_path = os.getcwd().split('/rocchio_records')[0]
         self.sp = self.init_spotify()
+        # Initialize class attributes that adjust as the GUI is used.
+        self.root = self.init_gui()
+        self.frame0 = None
+        self.frame1 = None
+        self.frame2 = None
+        self.frame3 = None
+        self.frame1b = None
+        self.label = None
+        self.tu_photoimage = None
+        self.td_photoimage = None
+        self.r_photoimage = None
+        self.p_photoimage = None
+        self.logo_photoimage = None
+        self.logo_label = None
+        self.lyricBox = None
+        self.lyricSearch = None
+        self.b_like = None
+        self.b_dislike = None
+        self.b_neutral = None
+        self.b_listen = None
+        self.tracker_label = None
+        self.sample_song_label = None
+        self.b_startover = None
+        self.b_keeprating = None
+        self.b_playlist = None
+        self.b_export_playlist = None
+        self.listBox_lyrics = None
+        self.vsb_lyrics = None
+        self.listBox_playlist = None
+        # this function will fill out all of the gui attributes
+        self.initialze_gui_layout()
         mainloop()
 
-    def init_spotify(self):
+    def init_spotify(self, default=False):
         """
         This function initializes a spotify object.
         This allows us to listen to music on spotify.
         """
-        with open('application_data/spotify_creds.txt') as file:
-            data = file.read()
-        js = json.loads(data)
+        if default:
+            # IF faulty credentials are provided default to
+            # these credentials to allow for basic operation
+            js = {
+                    "cid" : "75124b92e97f463f8f7549a7d6f06c3f",
+                    "secret" : "ff7a3e47a2a24597bad0db329fdee027",
+                    "username" : "1268144208"
+                }
+        else:
+            path = self.root_path + 'application_data/spotify_creds.txt'
+            try:
+                with open(path) as file:
+                    data = file.read()
+                js = json.loads(data)
+            except:
+                return self.init_spotify(default=True)
         cid = js['cid']
         secret = js['secret']
         token = util.prompt_for_user_token(
@@ -166,8 +103,26 @@ class Napster_GUI_Object():
         if token:
             sp = spotipy.Spotify(auth=token)
             return sp
-        return None
+        else:
+            # this means the user failed to provide credentials.
+            # use the default creds
+            return self.init_spotify(default=True)
 
+    def generate_photo(self, photoName):
+        """
+        Provide a path to a photo
+        return a photo object for the GUI
+        """
+        full_path = self.root_path + photoName
+        # Creating a photoimage object to use image
+        photo = PhotoImage(file = full_path)
+        return photo
+
+    def init_gui(self):
+        self.root = Tk()
+        self.root.geometry('640x450')
+        self.root.title("Rocchio Records")
+        return self.root
     #Action for clicking Get Lyric button
     def reset(self):          
         self.sample_song_label.config(text="")
@@ -339,4 +294,93 @@ class Napster_GUI_Object():
         self.reset()
         self.lyricSearch["state"] = DISABLED
         self.lyricBox["state"] = DISABLED
+
+    def initialze_gui_layout(self):
+        self.frame0 = Frame(self.root)
+        self.frame1 = Frame(self.root)
+        self.frame2 = Frame(self.root)
+        self.frame3 = Frame(self.root)
+        # Frame for get lyric, like, dislike
+        self.frame0.grid(row=0, column=0, sticky="w")
+        self.frame0.grid_columnconfigure((0,1,2,3), weight=1)
+        # Frame for get lyric, like, dislike
+        self.frame1.grid(row=1, column=0, sticky="w")
+        self.frame1.grid_columnconfigure((0,1,2,3), weight=1, uniform="column")
+        #Add buttons to sub-frame in Frame 1 so they all fit in first column
+        self.frame1b = Frame(self.frame1)
+        self.frame1b.grid(row=1, column=0, sticky="ew")
+        self.frame1b.grid_columnconfigure((0,1,2,3), weight=1, uniform="column")
+        # Frame to display like / dislike selections and playlist
+        self.frame2.grid(row=2, column=0, sticky="ew", rowspan=2)
+        self.frame3.grid(row=5, column=0, sticky="ew")
+        self.label = Label(self.frame1, text = 'Track: ' + '\n' + 'Artist: ' , anchor='w', justify=LEFT)
+        self.label.grid(row=0, column=0, sticky="nw", padx=3, pady = 10, columnspan=4)
+        # Add images to buttons
+        self.root_path = os.getcwd().split('/rocchio_records')[0]
+        self.tu_photoimage = self.generate_photo('/rocchio_records/user_interface/thumbs_up.png').subsample(6, 6)
+        self.td_photoimage = self.generate_photo('/rocchio_records/user_interface/thumbs_down.png').subsample(6, 6)
+        self.r_photoimage = self.generate_photo('/rocchio_records/user_interface/refresh.png').subsample(25, 25)
+        self.p_photoimage = self.generate_photo('/rocchio_records/user_interface/play_button.png').subsample(12, 12)
+        self.logo_photoimage = self.generate_photo('/rocchio_records/user_interface/rocchio_10.png').subsample(2, 2)
+        #Add logo to top frame
+        self.logo_label = Label(self.frame0, image = self.logo_photoimage)
+        self.logo_label.grid(row=0, column=0)
+        #Add search bar
+        self.lyricBox = Text(self.frame0, height=2, width=32)
+        self.lyricBox.grid(row=0, column=1, pady=5)
+        self.lyricSearch = Button(self.frame0, text = 'Submit', command=self.lyric_processing)
+        self.lyricSearch.grid(row=0, column=2, sticky="ew", padx=3, pady=5)
+        self.lyricSearch["state"] = NORMAL
+        # Create buttons (like, dislike, get lyrics, start over, view playlist)
+        self.b_like = Button(self.frame1b, image = self.tu_photoimage, compound = RIGHT, command=self.like)
+        self.b_like.grid(row=1, column=0, padx=3, pady=5)
+        self.b_dislike = Button(self.frame1b, image = self.td_photoimage, compound = RIGHT, command=self.dislike)
+        self.b_dislike.grid(row=1, column=1, padx=3, pady=5)
+        self.b_neutral = Button(self.frame1b, image = self.r_photoimage, compound = RIGHT, command=self.neutral)
+        self.b_neutral.grid(row=1, column=2, padx=2, pady=5)
+        self.b_listen = Button(self.frame1b, image = self.p_photoimage, compound = RIGHT, command=self.listen_to_track)
+        self.b_listen.grid(row=1, column=3, padx=2, pady=5)
+        # Track number of lyrics liked or disliked 
+        self.tracker_label = Label(self.frame1, text = 'Tracks Rated: ' + str("{0:0=2d}".format(self.like_dislike_counter)) + "/10")
+        self.tracker_label.grid(row=2, column=0, sticky="nw", padx=5, pady = 10)
+        # When play is clicked, display message on where song will play 
+        self.sample_song_label = Label(self.frame1, text = '')
+        self.sample_song_label.grid(row=1, column=1, sticky="nw", padx=5, pady = 10, columnspan=3)
+        # Start over button to get back to original screen
+        self.b_startover = Button(self.frame3, text = 'Start Over', command=self.start_over)
+        self.b_startover.grid(row=1, column=0, sticky="ew", padx=3, pady=5)
+        # Keep rating button
+        self.b_keeprating = Button(self.frame3, text = 'Keep Rating', command=self.keep_rating)
+        self.b_keeprating.grid(row=1, column=1, sticky="ew", padx=3, pady=5)
+        # View playlist once 10 lyrics rated
+        self.b_playlist = Button(self.frame3, text = 'View Playlist', command=self.view_playlist)
+        self.b_playlist.grid(row=1, column=2, sticky="ew", padx=3, pady=5)
+        # Export playlist to Spotify
+        self.b_export_playlist = Button(self.frame3, text = 'Add to Spotify Queue', command=self.export_to_spotify)
+        self.b_export_playlist.grid(row=1, column=3, sticky="ew", padx=3, pady=5)
+        # Set original state for like and dislike buttons to disables
+        self.b_like["state"] = DISABLED
+        self.b_dislike["state"] = DISABLED
+        self.b_neutral["state"] = DISABLED
+        self.b_listen["state"] = DISABLED
+        self.b_keeprating["state"] = DISABLED
+        self.b_playlist["state"] = DISABLED
+        self.b_export_playlist["state"] = DISABLED
+        # create table to show lyrics with rating and add a scrollbar
+        cols = ('Track Name', "Artist Name", 'Rating')
+        self.listBox_lyrics = ttk.Treeview(self.frame2, columns=cols, show='headings')
+        self.vsb_lyrics = ttk.Scrollbar(self.frame2, orient="vertical", command=self.listBox_lyrics.yview)
+        #doubleclicking changes like to dislike and vice versa
+        self.listBox_lyrics.bind("<Double-1>", self.enable_edit)
+        for col in cols:
+            self.listBox_lyrics.heading(col, text=col)    
+        self.vsb_lyrics.grid(row=1, column=1, sticky='ns')
+        self.listBox_lyrics.grid(row=1, column=0, sticky="ew")
+        self.listBox_lyrics.configure(yscrollcommand=self.vsb_lyrics.set)
+        # create table to show playlist - do not display until enabled
+        cols = ("Track Name","Artist Name")
+        self.listBox_playlist = ttk.Treeview(self.frame2, selectmode='browse', columns=cols, show='headings')
+        self.vsb_playlist = ttk.Scrollbar(self.frame2, orient="vertical", command=self.listBox_playlist.yview)
+        for col in cols:
+            self.listBox_playlist.heading(col, text=col)
         
