@@ -12,7 +12,8 @@ import os
 import pickle
 
 # steps for Rocchio Feedback Filter
-# PROCESS 1 convert the raw lyrics into the concept space.
+# PROCESS 1 convert the raw lyrics into the concept space. 
+# Note this happens before runtime and is imported using a pickle object!
 # 1. Create a TFIDF vectorizer
 # 2. Create a document term matrix using TFIDF vec fit_transform using the raw lyrics. [I think there is an option to lemmatize here]
 # 3. Complete latent semantic indexing using TruncatedSVD(num components = num comncepts, specifiy the random state)
@@ -35,7 +36,7 @@ import pickle
 #       Original search, loves, hates, nuetral
 # 4. Update the lyric search querry vector and return new results!
 
-class Napster2_Rocchio_Feedback():
+class Lyric_Rocchio_Feedback():
     """ 
     Object for containing all relevant Rocchio Search functionality
     """
@@ -47,6 +48,7 @@ class Napster2_Rocchio_Feedback():
         self.lyric_vecs = np.array(list(self.lyric_vec_dict.values()))
         self.lsiObj = self.load_lsi_pickle()
         self.tfidf = self.load_tfidf_pickle()
+        # this contains a list of liked tracks so that NEW tracks are returned each time.
         self.liked_track_ids = []
         self.all_tracks_df = pd.read_csv(self.main_path+'track_artist_id_df')
     
@@ -126,7 +128,6 @@ class Napster2_Rocchio_Feedback():
         2 = like
         """
         self.user_playlist['feedback'] = feedback_series.replace({'Nuetral' : 0, 'Dislike' : 1,'Like' : 2})
-        return 'is this thing on'
 
     def rocchio_feedback(self, alpha=1.0, beta=0.75, gamma=0.25, phi=0.5):#, user_playlist, track_vec_dict, userLsi):
         """ 
