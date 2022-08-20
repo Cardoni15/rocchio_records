@@ -37,8 +37,6 @@
 <li>All required python libraries are stored in requirements.txt</li>
 <li>No credentials required for generating a playlist</li> 
 <li>Exporting a playlist to Spotify requires spotify API credentials </li>
-<li>The user needs to generate spotipy API credentials HERE </li>
-<li>The user needs to generate lyric genius API credentials HERE </li>
 </ul>
 <h3> Generating Your First Playlist </h3>
 <ul>
