@@ -9,6 +9,7 @@ SPOTIPY_CLIENT_ID='YOUR_SPOTIFY_ID_HERE'
 secret = 'YOUR_SPOTIFY_SECRET_HERE'
 
 #Partial List of Genres
+#Full List contains 30+ genres
 genres_to_collect = (
     "country",
     "dance",
@@ -81,8 +82,12 @@ def spotify_data_booster(sp, tracks_df, num_iterations, genre_list):
                     tracks_df.loc[len(tracks_df.index)] = [temp_artist, temp_artist_id, temp_track_name, temp_track_id, genre]
     return tracks_df
 
+#Instantiate the Spotify API object
 sp_creds = create_credentials_obj()
+#Get the initial seed tracks for each of the genres
 artist_track_df = collect_seed_tracks(sp_creds, genres_to_collect, 1000)
+#Boost the dataset by using the seed tracks to generate more reccommended tracks from the same genre
 artist_track_df = spotify_data_booster(sp_creds, artist_track_df, 500, genres_to_collect)
+#Export the final dataframe to a CSV file
 artist_track_df.to_csv('./artist_track_data.csv')
 
