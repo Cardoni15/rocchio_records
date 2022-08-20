@@ -1,0 +1,5 @@
+{
+    "cid" : "75124b92e97f463f8f7549a7d6f06c3f",
+    "secret" : "ff7a3e47a2a24597bad0db329fdee027",
+    "username" : "1268144208"
+}

@@ -47,6 +47,7 @@ class Napster2_Rocchio_Feedback():
         self.lyric_vecs = np.array(list(self.lyric_vec_dict.values()))
         self.lsiObj = self.load_lsi_pickle()
         self.tfidf = self.load_tfidf_pickle()
+        self.liked_track_ids = []
         self.all_tracks_df = pd.read_csv(self.main_path+'track_artist_id_df')
     
     def base_path(self):
@@ -107,7 +108,8 @@ class Napster2_Rocchio_Feedback():
         # create a track name, track id, artist name, similarity dataframe
         # need to make this a copy so that we do not modify the already stored data
         self.all_tracks_df['similarity'] = simVals
-        self.user_playlist = self.all_tracks_df.sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']].reset_index(drop=True)
+        # remove previously liked songs so that 10 new tracks are provided.
+        self.user_playlist = self.all_tracks_df[~self.all_tracks_df['track_id'].isin(self.liked_track_ids)].sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']].reset_index(drop=True)
         self.user_playlist['feedback'] = 0
 
     def return_top_10_tracks(self):
@@ -157,4 +159,11 @@ class Napster2_Rocchio_Feedback():
         self.query = newQueryVec
         # update the search after making a new query vector
         self.create_user_playlist()
+
+    def update_liked_tracks(self, track_ids):
+        """
+        This function updates the liked tracks given a list of liked tracks.
+        """
+        self.liked_track_ids = track_ids
+
     

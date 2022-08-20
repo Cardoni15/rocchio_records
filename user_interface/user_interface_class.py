@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter.ttk import *
 from PIL import ImageTk, Image
 import webbrowser
+import json
 
 from tkinter import * 
 import tkinter.messagebox
@@ -146,12 +147,17 @@ class Napster_GUI_Object():
         mainloop()
 
     def init_spotify(self):
-        cid = '3c72f1d18da74f63addd8423fd7d668f'
-        secret = '447a83ea7f494680a9bf88a43db64548'
-        client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
-
+        """
+        This function initializes a spotify object.
+        This allows us to listen to music on spotify.
+        """
+        with open('application_data/spotify_creds.txt') as file:
+            data = file.read()
+        js = json.loads(data)
+        cid = js['cid']
+        secret = js['secret']
         token = util.prompt_for_user_token(
-            username='12156878652',
+            username=js['username'],
             client_id = cid,
             client_secret = secret,
             redirect_uri = 'http://localhost:8000',
@@ -219,6 +225,7 @@ class Napster_GUI_Object():
         self.listBox_lyrics.insert("", "end", values=(self.track_to_rate.track_name.astype('str').item(), self.track_to_rate.artist_name.astype('str').item(), "Neutral")) 
         self.reset()
     
+    # Action for listening to the 30 second sample of each track.
     def listen_to_track(self):   
         track = self.track_to_rate.track_id.astype('str').item()
         track = self.sp.track(track)
@@ -247,15 +254,17 @@ class Napster_GUI_Object():
         self.vsb_playlist.grid(row=1, column=1, sticky='ns')
         self.listBox_playlist.grid(row=1, column=0, sticky="ew")
         self.listBox_playlist.configure(yscrollcommand=self.vsb_playlist.set)
-        
-        #Insert songs from playlist dataframe
-        #for index, row in self.track_df.iterrows():
-        #    self.listBox_playlist.insert("", "end", values=(row.track_name, row.artist_name))
+        # get the user's final decision on each song
         for child in self.listBox_lyrics.get_children():
-            if self.listBox_lyrics.item(child)["values"][2] == 'Like':
-                self.listBox_playlist.insert("", "end", values=(self.listBox_lyrics.item(child)["values"][0],self.listBox_lyrics.item(child)["values"][1]))
-                # store tracks over multiple loops
+            if self.listBox_lyrics.item(child)["values"][2] != 'Dislike':
+                # extract the track id
                 self.liked_tracks = pd.concat([self.liked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
+        # update the track ids for liked tracks in the rocchio feedback filter to avoid duplicates
+        self.rff.update_liked_tracks(list(self.liked_tracks.track_id.unique()))
+        # write the track name and artist name for the entire user playlist.
+        [self.listBox_playlist.insert("", "end", values=(track[0],track[1])) for track in self.liked_tracks[['track_name', 'artist_name']].drop_duplicates().values]
+        
+        # reset button states for next iteration
         self.b_keeprating["state"] = NORMAL
         self.b_playlist["state"] = DISABLED
         self.b_export_playlist["state"] = NORMAL
@@ -291,7 +300,7 @@ class Napster_GUI_Object():
         self.reset()
         
     def export_to_spotify(self):
-        for index, row in self.track_df.iterrows():
+        for index, row in self.liked_tracks.iterrows():
             try:
                 self.sp.add_to_queue(row.track_id)
                 self.sample_song_label.config(text="Songs have been added to your queue!")
