@@ -84,12 +84,13 @@ class Rocchio_Records_GUI_Object():
                     "username" : "1268144208"
                 }
         else:
-            path = self.root_path + 'application_data/spotify_creds.txt'
+            path = self.root_path + '/rocchio_records/application_data/spotify_creds.txt'
             try:
                 with open(path) as file:
                     data = file.read()
                 js = json.loads(data)
             except:
+                print('warning: you have an error with your credentials file')
                 return self.init_spotify(default=True)
         cid = js['cid']
         secret = js['secret']
