@@ -5,8 +5,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from tqdm import tqdm
 
-SPOTIPY_CLIENT_ID='4f89cd57785747e1b1d7ee0b95e61985'
-secret = '61708a8ace7647ba888be760fbc822d1'
+SPOTIPY_CLIENT_ID='YOUR_SPOTIFY_ID_HERE'
+secret = 'YOUR_SPOTIFY_SECRET_HERE'
 
 #Partial List of Genres
 genres_to_collect = (
