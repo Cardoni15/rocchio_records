@@ -63,6 +63,17 @@
    <li> This notebook was provided in the event the user wants to retrain with a different set of tracks. </li>
    <li> More information can be found in the search_functionality read me. </li>
  </ul>
+ 
+ <h3> Providing Spotify Credentials <i>OPTIONAL</i> </h3>
+ <ul>
+  <li> You can still hear 30 second samples without credentials. </li>
+  <li> This product can export playlists to spotify if user credentials are created. </li>
+  <li> Log in to spotify at https://developer.spotify.com </li>
+  <li> Click "create an app" and call it Rocchio Reccords </li>
+  <li> Add your spotify username, CID, and secret to application_data/spotify_creds.txt </li>
+  <li> Click edit settings and add 'http://localhost:8000' to the redirect_uri section. </li>
+  <li> You can now add your liked songs to your queue! </li>
+ <ul>
 
 
 
