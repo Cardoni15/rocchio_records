@@ -10,6 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 import os
 import pickle
+import re
 
 # steps for Rocchio Feedback Filter
 # PROCESS 1 convert the raw lyrics into the concept space. 
@@ -62,6 +63,7 @@ class Lyric_Rocchio_Feedback():
         """ 
         Transform the user search string into the concept space
         """
+        user_query = re.sub('[^\w\s]', '', user_query)
         userVec = self.tfidf.transform([user_query])
         # convert query vec into the concept space
         userLsi = self.lsiObj.transform(userVec)
