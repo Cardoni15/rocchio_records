@@ -51,7 +51,17 @@
 <h3> Drawing Data from Spotify </h3>
 
 <h3> Generating an LSI Dictionary with New Track Data </h3>
-
+<ul>
+  <li> A custom set of lyrics can be used to retrain the system.</li>
+  <li> search_functionality/Generate_LSI.ipynb can be used to fit a new:</li>
+  <ul>
+    <li> TFIDF Vectorizer </li>
+    <li> Latent Semantic Indexing Object </li>
+    <li> {Track ID: Concept Vectors} Dictionary </li>
+   </ul>
+   <li> We recommend using the default objects in the repo. 75k tracks are already included. </li>
+   <li> This notebook was provided in the event the user wants to retrain with a different set of tracks. </li>
+ </ul>
 
 
 
