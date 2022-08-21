@@ -233,7 +233,7 @@ class Rocchio_Records_GUI_Object():
         self.lyric_entered = 0
         # reinitialize the rocchio feedback filter
         self.rff = Lyric_Rocchio_Feedback()
-        self.liked_tracks = None
+        self.liked_tracks = pd.DataFrame()
         # set counter back to 0 
         self.like_dislike_counter  = -1
         self.like_dislike_count()
