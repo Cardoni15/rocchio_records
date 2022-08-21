@@ -216,9 +216,11 @@ class Rocchio_Records_GUI_Object():
                 # extract the track id
                 self.liked_tracks = pd.concat([self.liked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
         # update the track ids for liked tracks in the rocchio feedback filter to avoid duplicates
-        self.rff.update_liked_tracks(list(self.liked_tracks.track_id.unique()))
+        # check if it is empty before trying to write
+        if len(self.liked_tracks) > 0:
+            self.rff.update_liked_tracks(list(self.liked_tracks.track_id.unique()))
         # write the track name and artist name for the entire user playlist.
-        [self.listBox_playlist.insert("", "end", values=(track[0],track[1])) for track in self.liked_tracks[['track_name', 'artist_name']].drop_duplicates().values]
+            [self.listBox_playlist.insert("", "end", values=(track[0],track[1])) for track in self.liked_tracks[['track_name', 'artist_name']].drop_duplicates().values]
         
         # reset button states for next iteration
         self.b_keeprating["state"] = NORMAL
@@ -229,6 +231,8 @@ class Rocchio_Records_GUI_Object():
     def start_over(self):
         #set flag back to 0 that no lyric has been entered yet
         self.lyric_entered = 0
+        # reinitialize the rocchio feedback filter
+        self.rff = Lyric_Rocchio_Feedback()
         # set counter back to 0 
         self.like_dislike_counter  = -1
         self.like_dislike_count()
@@ -238,6 +242,7 @@ class Rocchio_Records_GUI_Object():
         self.b_export_playlist["state"] = DISABLED
         # Remove lyric
         self.label.config(text="")
+        self.lyricSearch["state"] = NORMAL
         # Reset table that displays playlist
         for item in self.listBox_playlist.get_children():
             self.listBox_playlist.delete(item)
@@ -252,8 +257,6 @@ class Rocchio_Records_GUI_Object():
         self.listBox_lyrics.grid(row=1, column=0, sticky="ew")
         #reset lyric search functionality (set button back to normal and clear text box)
         self.lyricSearch["state"] = NORMAL
-        #lyricBox.delete("1.0","end")
-        self.reset()
         
     def export_to_spotify(self):
         for index, row in self.liked_tracks.iterrows():
