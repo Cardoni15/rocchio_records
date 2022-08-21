@@ -63,6 +63,7 @@ class Lyric_Rocchio_Feedback():
         """ 
         Transform the user search string into the concept space
         """
+        user_query = re.sub('\n', ' ', user_query)
         user_query = re.sub('[^\w\s]', '', user_query)
         userVec = self.tfidf.transform([user_query])
         # convert query vec into the concept space
@@ -102,7 +103,7 @@ class Lyric_Rocchio_Feedback():
             lyric_file.close()
             return lryicVecs
 
-    def create_user_playlist(self): #lyric_df, userLsi, lyric_vecs):
+    def create_user_playlist(self):
         """ 
         calculate cosine similarity between lyrics and user query
         return the top 10 in a dataframe.
@@ -131,7 +132,7 @@ class Lyric_Rocchio_Feedback():
         """
         self.user_playlist['feedback'] = feedback_series.replace({'Nuetral' : 0, 'Dislike' : 1,'Like' : 2})
 
-    def rocchio_feedback(self, alpha=1.0, beta=0.75, gamma=0.25, phi=0.5):#, user_playlist, track_vec_dict, userLsi):
+    def rocchio_feedback(self, alpha=1.0, beta=0.75, gamma=0.25, phi=0.5):
         """ 
         Rochhio Feedback Filtering
         1. Group user feeback by like, nuetral, dislike
