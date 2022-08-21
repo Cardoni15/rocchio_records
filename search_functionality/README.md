@@ -24,5 +24,13 @@ This folder contains 3 files:
         <li> Disliked song vector: -0.25 </li>
       </ul>
      <li> The filter remembers liked and neutral songs and always provides 10 new never before seen tracks to the user </li>
-  </ul>
+   </ul>
+   <li> model_performance.ipynb </li>
+     <ul>
+      <li> Evaluate similarity between partial lyrical matchs </li>
+      <li> Generate playlists from each topic </li>
+     </ul> 
+     </ul>
+
+  
   
