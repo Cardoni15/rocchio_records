@@ -1,5 +1,5 @@
 <h3> Search Functionality </h3>
-This folder contains 3 files:
+Key search functionality files:
 <ul>
   <li> Generate_LSI.ipynb </li>
   <ul> 
