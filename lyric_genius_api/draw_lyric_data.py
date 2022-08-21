@@ -55,5 +55,5 @@ with ThreadPoolExecutor(max_workers = 10) as exec:
 
 #Convert List of Lists to DF and then to CSV
 final_df = pd.DataFrame(lyrics, columns = ['track_name', 'artist_name','genre','raw_lyrics'])
-final_df.to_csv('/Users/daking/Documents/GitHub/napster_2/lyric_genius_api/data3/final_lyric_data_trial_2.csv')
+final_df.to_csv('./final_lyric_data.csv')
 
