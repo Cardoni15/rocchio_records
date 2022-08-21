@@ -9,7 +9,7 @@ from nltk import flatten
 
 
 #Instatiate Genius API Object
-genius = lg.Genius("me-MXmuCTyJWDZ1MmERAAyivlY61EvPSD7KX2lBynV60vCOlEheYc6HVfPGlQ0ru")
+genius = lg.Genius("***YOUR GENIUS API TOKEN GOES HERE***")
 genius.remove_section_headers = True
 
 
