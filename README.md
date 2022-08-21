@@ -73,7 +73,7 @@
  
  <h3> Providing Spotify Credentials <i>OPTIONAL</i> </h3>
  <ul>
-  <li> You can still hear 30 second samples without credentials. </li>
+  <li> This is required to hear 30 second samples. </li>
   <li> This product can export playlists to spotify if user credentials are created. </li>
   <li> Log in to spotify at https://developer.spotify.com </li>
   <li> Click "create an app" and call it Rocchio Reccords </li>
