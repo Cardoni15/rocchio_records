@@ -47,6 +47,7 @@ class Lyric_Rocchio_Feedback():
         self.main_path = self.base_path()
         self.lyric_vec_dict = self.load_lsi_dict_pickle()
         self.lyric_vecs = np.array(list(self.lyric_vec_dict.values()))
+        self.disliked_track_ids = []
         self.lsiObj = self.load_lsi_pickle()
         self.tfidf = self.load_tfidf_pickle()
         # this contains a list of liked tracks so that NEW tracks are returned each time.
@@ -114,7 +115,7 @@ class Lyric_Rocchio_Feedback():
         # need to make this a copy so that we do not modify the already stored data
         self.all_tracks_df['similarity'] = simVals
         # remove previously liked songs so that 10 new tracks are provided.
-        self.user_playlist = self.all_tracks_df[~self.all_tracks_df['track_id'].isin(self.liked_track_ids)].sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']].reset_index(drop=True)
+        self.user_playlist = self.all_tracks_df[~self.all_tracks_df['track_id'].isin(self.liked_track_ids + self.disliked_track_ids)].sort_values(by='similarity', ascending=False).head(10)[['track_name', 'artist_name', 'track_id']].reset_index(drop=True)
         self.user_playlist['feedback'] = 0
 
     def return_top_10_tracks(self):
@@ -169,5 +170,12 @@ class Lyric_Rocchio_Feedback():
         This function updates the liked tracks given a list of liked tracks.
         """
         self.liked_track_ids = track_ids
+
+    def update_disliked_tracks(self, track_ids):
+        """ 
+        This function updates the disliked track list so that the song is not
+        reccommended more than once
+        """
+        self.disliked_track_ids = track_ids
 
     
