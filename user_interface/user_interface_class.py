@@ -30,6 +30,7 @@ class Rocchio_Records_GUI_Object():
         """
         self.rff = Lyric_Rocchio_Feedback()
         self.liked_tracks = pd.DataFrame()
+        self.disliked_tracks = pd.DataFrame()
         self.track_df = None
         self.track_to_rate = None
         self.like_dislike_counter = 0
@@ -215,13 +216,18 @@ class Rocchio_Records_GUI_Object():
             if self.listBox_lyrics.item(child)["values"][2] != 'Dislike':
                 # extract the track id
                 self.liked_tracks = pd.concat([self.liked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
+            else:
+                #update the disliked tracks list
+                self.disliked_tracks = pd.concat([self.disliked_tracks, self.track_df[self.track_df.track_name == self.listBox_lyrics.item(child)["values"][0]]])
         # update the track ids for liked tracks in the rocchio feedback filter to avoid duplicates
+
         # check if it is empty before trying to write
         if len(self.liked_tracks) > 0:
             self.rff.update_liked_tracks(list(self.liked_tracks.track_id.unique()))
         # write the track name and artist name for the entire user playlist.
             [self.listBox_playlist.insert("", "end", values=(track[0],track[1])) for track in self.liked_tracks[['track_name', 'artist_name']].drop_duplicates().values]
-        
+        if len(self.disliked_tracks) > 0:
+            self.rff.update_disliked_tracks(list(self.disliked_tracks.track_id.unique()))
         # reset button states for next iteration
         self.b_keeprating["state"] = NORMAL
         self.b_playlist["state"] = DISABLED
@@ -234,6 +240,7 @@ class Rocchio_Records_GUI_Object():
         # reinitialize the rocchio feedback filter
         self.rff = Lyric_Rocchio_Feedback()
         self.liked_tracks = pd.DataFrame()
+        self.disliked_tracks = pd.DataFrame()
         # set counter back to 0 
         self.like_dislike_counter  = -1
         self.like_dislike_count()
