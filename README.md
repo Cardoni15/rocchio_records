@@ -46,7 +46,16 @@
   <li>Once 10 tracks are rated, view the playlist</li>
   <li>Export the playlist to Spotify or continue rating tracks for a more customized playlist</li>
 </ul>
-<h3> Drawing Data from Spotify </h3>
+<h3> Drawing Data from Spotify and Genius </h3>
+<ul>
+  <li> Data can be drawn from Spotify using whatever genres you wish to draw tracks from </li>
+  <li> Afterwards, the information from that can be used to return lyrical content per track using Genius </li>
+  <li> The steps are as follows: </li>
+  <ul>
+    <li> Update genres to your liking in draw_spotify_data.py, and then run the file </li>
+    <li> Then run draw_lyric_data.py and the final dataset will be exported to 'final_lyric_data.csv' </li>
+   </ul>
+ </ul>
 
 <h3> Generating an LSI Dictionary with New Track Data </h3>
 <ul>
