@@ -258,6 +258,33 @@ class Rocchio_Records_GUI_Object():
         self.listBox_lyrics.grid(row=1, column=0, sticky="ew")
         #reset lyric search functionality (set button back to normal and clear text box)
         self.lyricSearch["state"] = NORMAL
+
+    def loop_again(self):
+        #set flag back to 0 that no lyric has been entered yet
+        self.lyric_entered = 0
+        # set counter back to 0 
+        self.like_dislike_counter  = -1
+        self.like_dislike_count()
+        # Reset buttons
+        self.b_playlist["state"] = DISABLED
+        self.b_keeprating["state"] = DISABLED
+        self.b_export_playlist["state"] = DISABLED
+        # Remove lyric
+        self.label.config(text="")
+        # Reset table that displays playlist
+        for item in self.listBox_playlist.get_children():
+            self.listBox_playlist.delete(item)
+        # Hide playlist and scrollbar
+        self.listBox_playlist.grid_forget()
+        self.vsb_playlist.grid_forget()
+        # Reset table that displays liked / disliked lyrics
+        for item in self.listBox_lyrics.get_children():
+            self.listBox_lyrics.delete(item)
+        self.listBox_lyrics.grid(row=1, column=0, sticky="ew")
+        #reset lyric search functionality (set button back to normal and clear text box)
+        self.lyricSearch["state"] = NORMAL
+        #lyricBox.delete("1.0","end")
+        self.reset()
         
     def export_to_spotify(self):
         for index, row in self.liked_tracks.iterrows():
@@ -286,7 +313,6 @@ class Rocchio_Records_GUI_Object():
     def keep_rating(self):
         # this means that the user wants to keep iterating.
         # our next step is to get their likes and dislikes.
-            #test out print of values in table that show likes/dislikes
         ratings = pd.Series([self.listBox_lyrics.item(child)["values"][-1] for child in self.listBox_lyrics.get_children()])
         # provide the ratings to the rocchio filter
         self.rff.apply_feedback(ratings)
@@ -294,7 +320,7 @@ class Rocchio_Records_GUI_Object():
         self.rff.rocchio_feedback()
         # update the track list
         self.track_df = self.rff.return_top_10_tracks()
-        self.start_over()
+        self.loop_again()
         self.lyric_entered = 1 
         self.reset()
         self.lyricSearch["state"] = DISABLED
