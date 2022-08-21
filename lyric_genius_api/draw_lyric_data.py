@@ -14,7 +14,7 @@ genius.remove_section_headers = True
 
 
 #Read in Artist Data
-artist_df = pd.read_csv('/Users/daking/Documents/GitHub/napster_2/lyric_genius_api/song_data/final_song_data.csv')
+artist_df = pd.read_csv('./artist_track_data.csv'')
 
 
 
